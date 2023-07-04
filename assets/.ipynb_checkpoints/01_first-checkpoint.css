@@ -1,0 +1,36 @@
+/* body{
+    padding:0;
+    margin:0;
+}
+.container{
+    max-width: 100%; 
+    margin:20px;
+    overflow: hidden;
+}
+.choropleth{
+    width: 100%;
+}
+.barcharts{
+    display: flex;
+    width:100%;
+    margin-right: 20px;
+}
+.local_auth{
+    padding:20px;
+    width: 48%;
+}
+.sub_reg{
+    margin:20px;
+    width: 48%;
+    font-size:12px;
+}
+.sub{
+    font-size:12px;
+} */
+#observation_year{
+    display: flex;
+}
+    
+.local_auth{
+    display: flex!important;
+}
