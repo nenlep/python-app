@@ -314,6 +314,7 @@ with open('Local_Authority_Districts_(December_2021)_GB_BFC.json') as response:
 
 # Create the Dash app
 app = dash.Dash(__name__)
+server = app.server
 
 # Define the layout of the app
 app.layout = dbc.Container([
