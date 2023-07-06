@@ -307,9 +307,10 @@ import webbrowser
 from dash.dependencies import Input, Output
 import dash_bootstrap_components as dbc
 from dash import html
+from urllib.request import urlopen
 
 #json file for choropleth map
-with open('Local_Authority_Districts_(December_2021)_GB_BFC.json') as response:
+with urlopen('https://raw.githubusercontent.com/nenlep/python-app/main/Local_Authority_Districts_(December_2021)_GB_BFC.json') as response:
     Local_auth = json.load(response)
 
 # Create the Dash app
