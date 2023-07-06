@@ -25,9 +25,9 @@ import plotly.express as px
 from dash import dash, dcc, html, ctx, Input, Output, callback
 import hvplot.pandas
 
-cwd = os.getcwd()
-csv_file_path = os.path.join(cwd, 'data', '2021_HQUAL_LOWER_TIER.csv')
-data = pd.read_csv(csv_file_path)
+# cwd = os.getcwd()
+# csv_file_path = os.path.join(cwd, 'data', '2021_HQUAL_LOWER_TIER.csv')
+data = pd.read_csv('https://raw.githubusercontent.com/nenlep/python-app/main/data/2021_HQUAL_LOWER_TIER.csv')
 
 # data = pd.read_csv('./data/2021_HQUAL_LOWER_TIER.csv')
 data
@@ -76,9 +76,9 @@ data['Observation'].dtype
 
 data.highest_qualification
 
-cwd = os.getcwd()
-csv_file_path = os.path.join(cwd, 'data', '2011_HQUAL_LOWER_TIER.csv')
-df = pd.read_csv(csv_file_path)
+# cwd = os.getcwd()
+# csv_file_path = os.path.join(cwd, 'data', '2011_HQUAL_LOWER_TIER.csv')
+df = pd.read_csv('https://raw.githubusercontent.com/nenlep/python-app/main/data/2011_HQUAL_LOWER_TIER.csv')
 df1 = df.copy(deep=True)
 df1
 
