@@ -21,6 +21,7 @@ import numpy as np
 import panel as pn
 import pandas as pd
 import json,os
+import plotly.graph_objects as go
 import plotly.express as px
 from dash import dash, dcc, html, ctx, Input, Output, callback
 import hvplot.pandas
