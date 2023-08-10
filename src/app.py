@@ -128,21 +128,6 @@ data
 false_indices = reorganized_df.loc[~reorganized_df['local_authority'].isin(reorganized_df['local_authority']), 'local_authority']
 false_indices.unique()
 
-"""edited the names of 'Bournemouth, Christchurch and Poole' to 'Bournemouth in (2021),
-edited 'Herefordshire, County of' to 'Herefordshire' in 2011
-edited 'Rhondda Cynon Taff' to 'Rhondda Cynon Taf' in 2011,
-edited 'Kingston upon Hull, City of' to 'Kingston upon Hull' (2011),
-2011: Tauton Deane, West Somerset = Somerset West and Taunton,
-2011: Corby, East Northamptonshire, Kettering, Wellingborough = North Northamptonshire,
-2011: Daventry, Northampton, South Northamptonshire = West Northamptonshire,
-edited 'Bristol, City of' to 'Bristol' in 2011,
-2011: 'Weymouth and Portland', 'West Dorset', 'North Dorset', 'Purbeck','East Dorset' = Dorset,
-2011: Aylesbury Vale, Chiltern, South Bucks, Wycombe = Buckinghamshire (2011)
-2011: Bournemouth, Christchurch, Poole = Bournemouth (2011)
-2011: 'Forest Heath', 'St Edmundsbury' = West Suffolk
-2011: 'Waveney','Suffolk Coastal' = East Suffolk
-"""
-
 matching_rows = reorganized_df[reorganized_df['local_authority'].str.contains('Northamptonshire', case=False)]
 print(matching_rows)
 
@@ -202,13 +187,13 @@ west_midlands = ['Birmingham','Bromsgrove','Cannock Chase', 'Coventry', 'Dudley'
                              'Stoke-on-Trent','Stratford-on-Avon','Tamworth','Telford and Wrekin', 'Walsall', 'Warwick', 'Wolverhampton',
                              'Worcester','Wychavon','Wyre Forest']
 
-# Define the list of local authorities in the West Midlands
+# Define the list of local authorities in the south west
 south_west = ['Bath and North East Somerset','Bournemouth','Bristol','Cheltenham','Cornwall','Cotswold','East Devon',
                           'Dorset','Exeter','Forest of Dean','Gloucester','Isles of Scilly','Mendip','Mid Devon','North Devon',
                           'North Somerset','Plymouth','Sedgemoor','Somerset West and Taunton','South Gloucestershire','South Hams',
                           'South Somerset','Stroud','Swindon','Teignbridge','Tewkesbury','Torbay','Torridge','West Devon','Wiltshire']
 
-# Define the list of local authorities in the West Midlands
+# Define the list of local authorities in the south east
 south_east = ['Adur','Arun','Ashford','Basingstoke and Deane','Brighton and Hove','Bracknell Forest','Buckinghamshire',
                           'Canterbury','Cherwell','Chichester','Crawley','Dartford','Dover','East Hampshire','Eastbourne','Eastleigh',
                           'Elmbridge','Epsom and Ewell','Fareham','Folkestone and Hythe','Gosport','Gravesham','Guildford',
@@ -219,7 +204,7 @@ south_east = ['Adur','Arun','Ashford','Basingstoke and Deane','Brighton and Hove
                           'Waverley','Wealden','West Berkshire','West Oxfordshire','Winchester','Windsor and Maidenhead','Woking',
                           'Wokingham','Worthing']
 
-# Define the list of local authorities in the West Midlands
+# Define the list of local authorities in the yorkshire and the humber
 yorkshire_and_humber = ['Barnsley','Bradford','Calderdale','Craven','Doncaster','East Riding of Yorkshire','Hambleton',
                                     'Harrogate','Kingston upon Hull','Kirklees','Leeds','North East Lincolnshire','North Lincolnshire',
                                     'Richmondshire','Rotherham','Ryedale','Scarborough','Selby','Sheffield',
@@ -258,18 +243,10 @@ east_of_england = ['Babergh','Basildon','Braintree','Breckland','Brentwood','Bro
                                'North Hertfordshire','North Norfolk','Norwich','Peterborough','Rochford','St Albans','Southend-on-Sea','South Cambridgeshire',
                                'South Norfolk','Stevenage','Suffolk Coastal','Tendring','Three Rivers','Thurrock','Uttlesford',
                                'Watford','Welwyn Hatfield','West Suffolk']
-south_wales_east = ['Vale of Glamorgan','Rhondda Cyon Taf','Merthyr Tydfil','Caerphilly','Cardiff','Newport','Blaenau Gwent',
-                    'Torfan','Monmouthshire','Bridgend']
-mid_and_west_wales = ['Powys','Ceredigion']
-south_wales_west = ['Carmarthenshire','Neath Port Talbot','Pembrokeshire','Swansea']
-north_wales = ['Conwy','Denbighshire','Flintshire','Gwynedd','Wrexham','Isle of Anglesey']
 
-# Define the list of local authorities in the Wales
-south_wales = ['Vale of Glamorgan','Rhondda Cynon Taf','Merthyr Tydfil','Caerphilly','Cardiff','Newport','Blaenau Gwent',
-                'Torfaen','Monmouthshire','Bridgend']
-mid_wales = ['Powys','Ceredigion']
-west_wales = ['Carmarthenshire','Neath Port Talbot','Pembrokeshire','Swansea']
-north_wales = ['Conwy','Denbighshire','Flintshire','Gwynedd','Wrexham','Isle of Anglesey']
+# Define the list of local authorities in Wales
+wales = ['Vale of Glamorgan','Merthyr Tydfil','Caerphilly','Cardiff','Rhondda Cynon Taf', 'Torfaen','Newport','Blaenau Gwent',
+         'Monmouthshire','Bridgend','Powys','Ceredigion','Carmarthenshire','Neath Port Talbot','Pembrokeshire','Swansea','Conwy','Denbighshire','Flintshire','Gwynedd','Wrexham','Isle of Anglesey']
 
 # Create a list of conditions and corresponding values for sub-regions
 conditions = [
@@ -282,15 +259,11 @@ conditions = [
     merged_df['local_authority'].isin(south_east),
     merged_df['local_authority'].isin(south_west),
     merged_df['local_authority'].isin(west_midlands),
-    merged_df['local_authority'].isin(south_wales),
-    merged_df['local_authority'].isin(mid_wales),
-    merged_df['local_authority'].isin(west_wales),
-    merged_df['local_authority'].isin(north_wales)
-    # Add more conditions for other sub-regions if needed
+    merged_df['local_authority'].isin(wales)
 ]
 values = ['East of England','North East','East Midlands','Greater London','North West',
           'Yorkshire and the Humber','South East', 'South West','West Midlands',
-         'South Wales','Mid Wales','West Wales','North Wales']  # Corresponding sub-region names
+         'Wales']  # Corresponding sub-region names
 
 # Assign the sub-region values to the 'sub_region' column based on the conditions
 merged_df['sub_region'] = np.select(conditions, values, default=None)
@@ -315,7 +288,7 @@ with urlopen('https://raw.githubusercontent.com/nenlep/python-app/main/Local_Aut
     Local_auth = json.load(response)
 
 # Create the Dash app
-external_stylesheets = ['https://github.com/nenlep/python-app/blob/main/assets/01_first.css',dbc.themes.FLATLY]
+external_stylesheets = [dbc.themes.FLATLY]
 app = dash.Dash(__name__, external_stylesheets = external_stylesheets)
 server = app.server
 
@@ -324,6 +297,26 @@ app.layout = dbc.Container([
     dbc.Row([
         dbc.Col(html.H4("Comparing levels of qualification in England and wales (2011 v 2021)",className='text-center'),width=12)
     ]),
+     #pie chart
+      dbc.Row(
+    [
+        html.Label('Qualification Level Distribution', className='mb-4 text-center'),
+        dbc.Col(
+            [
+                dcc.Graph(id='pie-chart-2011'),
+            ],
+            width=6
+        ),
+        dbc.Col(
+            [
+                dcc.Graph(id='pie-chart-2021'),
+            ],
+            width=6
+        ),
+    ],
+    className='mt-4 mb-4 flex-row'
+),
+
     dbc.Row([
     # Choropleth map
         html.Div(className='choropleth',children=[
@@ -353,77 +346,59 @@ app.layout = dbc.Container([
     ]),
 
     #bar charts
-    dbc.Row([
-        # Bar chart for local authorities
-        html.Div(className='local_auth',children=[
-            # dbc.Row(,
-                dbc.Col([
-                    html.H6("Comparing levels of qualification for each local authority",className='text-center'),
-                    html.Label('Select Local Authority:'),
-                    dcc.Dropdown(
-                        id='local_authority',
-                        className = 'mb-2',
-                        options=[{'label': authority, 'value': authority} for authority in merged_df['local_authority'].unique()],
-                        value=merged_df['local_authority'].unique()[0],  # Set initial value to the first local authority
-                        clearable=False),
-                    dcc.Graph(id='local-authority-bar-chart')],width={"size": 6},className = 'mr-4',
-                ),
-            # Bar chart for sub-regions
-                dbc.Col([
-                    html.H6("Comparing levels of qualification for each sub-region",className='text-center'),
-                    html.Label('Select sub-region:'),
-                    dcc.Dropdown(
-                        className = 'mb-2',
-                        id='sub_region',
-                        options=[{'label': region, 'value': region} for region in merged_df['sub_region'].unique()],
-                        value=merged_df['sub_region'].unique()[0],  # Set initial value to the first local authority
-                        clearable=False),
-                    dcc.Graph(id='sub-region-bar-chart')],width=6
-                ),
-            ])
-        ],className='mt-4 mb-4 flex-row'),
+dbc.Row([
+    dbc.Col([
+        html.H6("Comparing levels of qualification for each local authority", className='text-center'),
+        html.Label('Select Local Authority:'),
+        dcc.Dropdown(
+            id='local_authority',
+            className='mb-2',
+            options=[{'label': authority, 'value': authority} for authority in merged_df['local_authority'].unique()],
+            value=merged_df['local_authority'].unique()[0],  # Set initial value to the first local authority
+            clearable=False
+        ),
+        dcc.Graph(id='local-authority-bar-chart')
+    ], width=6, className='mr-4'),
 
-    #pie chart
-      dbc.Row([
-        html.Label('Qualification Level Distribution'),
-        # Bar chart for local authorities
-        html.Div(className='local_auth',children=[
-            # dbc.Row(,
+    dbc.Col([
+        html.H6("Comparing levels of qualification for each sub-region", className='text-center'),
+        html.Label('Select sub-region:'),
+        dcc.Dropdown(
+            id='sub_region',
+            className='mb-2',
+            options=[{'label': region, 'value': region} for region in merged_df['sub_region'].unique()],
+            value=merged_df['sub_region'].unique()[0],  # Set initial value to the first region
+            clearable=False
+        ),
+        dcc.Graph(id='sub-region-bar-chart')
+    ], width=6)
+], className='mt-4 mb-4 flex-row'),
 
-                dbc.Col([
-                    dcc.Graph(id='pie-chart-2011'),
-                    # className = 'mr-4',
-                ],width=6),
-            # Bar chart for sub-regions
-                dbc.Col([
-                    dcc.Graph(id='pie-chart-2021')
-                ],width=6),
-            ])
-        ],className='mt-4 mb-4 flex-row'),
+
 
 #========================================================
     # # scatterplot
-    # dbc.Row([
+    dbc.Row([
 
-    #     html.Div(children=[
-    #         dbc.Col([
-    #              html.Label('Select qualification level:'),
-    #             dcc.Dropdown(
-    #                 id='qualification-level-dropdown',
-    #                 options=[{'label': ql, 'value': ql} for ql in merged_df['highest_qualification_level'].unique()],
-    #                 value=None
-    #             ),
-    #             html.Label('Select sub-region:'),
-    #             dcc.Dropdown(
-    #                 id='sub-region-dropdown',
-    #                 options=[{'label': sr, 'value': sr} for sr in merged_df['sub_region'].unique()],
-    #                 multi=True,
-    #                 value=[]
-    #             ),
-    #             dcc.Graph(id='scatter-plot')
-    #         ])
-    #     ])
-    # ])
+        html.Div(children=[
+            dbc.Col([
+                 html.Label('Select qualification level:'),
+                dcc.Dropdown(
+                    id='qualification-level-dropdown',
+                    options=[{'label': ql, 'value': ql} for ql in merged_df['highest_qualification_level'].unique()],
+                    value=None
+                ),
+                html.Label('Select sub-region:'),
+                dcc.Dropdown(
+                    id='sub-region-dropdown',
+                    options=[{'label': sr, 'value': sr} for sr in merged_df['sub_region'].unique()],
+                    multi=True,
+                    value=[]
+                ),
+                dcc.Graph(id='scatter-plot')
+            ])
+        ])
+    ])
 #=============================================================
 ])
 
@@ -453,12 +428,17 @@ def update_choropleth(qualification_level, observation_year):
         featureidkey='properties.LAD21NM',
         color=observation_column,
         center={"lat": 53.09621, "lon": -4.0286298},
-        color_continuous_scale='viridis',
+        color_continuous_scale='Plasma',
         mapbox_style="carto-positron",
         title=f'Choropleth map comparing Level {qualification_level} qualifications for all local authorities in England and Wales for the year {year}',
         zoom=4.3,
         height = 500,
         hover_name='local_authority',
+        hover_data={
+        'local_authority': True,  # Show the name of the local authority
+        observation_column: True,  # Show the qualification count for the selected level
+        'sub_region': True,       # Show the sub-region (replace 'sub_region' with the actual column name in your DataFrame)
+    },
         labels={'2011_Observation': 'Qualification Count in 2011',
                 '2021_Observation': 'Qualification Count in 2021',
                 }
@@ -582,46 +562,47 @@ def update_sub_region_bar_chart(selected_sub_region):
 
     # Customize other layout properties as needed
     fig.update_layout(
-        title=f'Highest Qualification Levels in {selected_sub_region} (2011 v 2021)',
-        xaxis_title='Qualification Level',
-        yaxis_title='Count',
-        legend_title_text='Observation Year',
-        hovermode='x unified',
-        hoverlabel=dict(
-            # bgcolor="black",
-            font_size=12,
-            font_family="Rockwell"
-        )
-    )
+    title=f'Highest Qualification Levels in {selected_sub_region} (2011 v 2021)',
+    xaxis_title='Qualification Level',
+    yaxis_title='Count',
+    legend_title_text='Observation Year',
+    hovermode='x unified',
+    hoverlabel=dict(
+        font_size=12,
+        font_family="Rockwell",
+    ),
+    paper_bgcolor='white',  # Background color of the entire figure
+    plot_bgcolor='white',   # Background color of the plotting area
+    font_color='black'
+)
 
     return fig
 
 # ====================================================================
-# #callback for scatterplot
-# @app.callback(
-#     Output('scatter-plot', 'figure'),
-#     [Input('qualification-level-dropdown', 'value'),
-#      Input('sub-region-dropdown', 'value')]
-# )
-# def update_scatter_plot(qualification_level, sub_regions):
-#     filtered_data = merged_df[
-#         (merged_df['highest_qualification_level'] == qualification_level) &
-#         (merged_df['sub_region'].isin(sub_regions))
-#     ]
+#callback for scatterplot
+@app.callback(
+    Output('scatter-plot', 'figure'),
+    [Input('qualification-level-dropdown', 'value'),
+     Input('sub-region-dropdown', 'value')]
+)
+def update_scatter_plot(qualification_level, sub_regions):
+    filtered_data = merged_df[
+        (merged_df['highest_qualification_level'] == qualification_level) &
+        (merged_df['sub_region'].isin(sub_regions))
+    ]
 
-#     scatter_plot = px.scatter(filtered_data, x='2011_Observation', y='2021_Observation',
-#                               title=f'Comparing Observations for qualification level {qualification_level} in {sub_regions} (2011 v 2021)',
-#                               color='sub_region', hover_name='local_authority',
-#                               labels={'2011_Observation': 'Qualification Count in 2011',
-#                                       '2021_Observation': 'Qualification Count in 2021',
-#                                       'sub_region': 'Sub-Region'}
-#                              )
+    scatter_plot = px.scatter(filtered_data, x='2011_Observation', y='2021_Observation',
+                              title=f'Comparing Observations for qualification level {qualification_level} in {sub_regions} (2011 v 2021)',
+                              color='sub_region', hover_name='local_authority',
+                              labels={'2011_Observation': 'Qualification Count in 2011',
+                                      '2021_Observation': 'Qualification Count in 2021',
+                                      'sub_region': 'Sub-Region'}
+                             )
 
-#     return scatter_plot
+    return scatter_plot
 #========================================================================
 
 # Run the app
 if __name__ == '__main__':
     app.run_server(debug=True)
 # webbrowser.open_new_tab('http://localhost:8050/')  # Replace with the appropriate URL
-
