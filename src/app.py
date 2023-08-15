@@ -456,30 +456,39 @@ def update_choropleth(qualification_level, observation_year):
     [Input('local_authority', 'value')]
 )
 def update_local_authority_bar_chart(selected_local_authority):
-    # Filter the dataframe based on the selected local authority
+    # Filter the dataframe based on the selected sub-region
     filtered_df = merged_df[merged_df['local_authority'] == selected_local_authority]
 
-    # Create the comparative bar chart
+    # Group the filtered dataframe by 'Highest_Qualification_Level' and calculate the count for 2011 and 2021
+    grouped_df = filtered_df.groupby('highest_qualification_level')[['2011_Observation', '2021_Observation']].sum().reset_index()
+
+    # Create the grouped bar chart using Plotly Express
     fig = px.bar(
-        data_frame=filtered_df,
+        grouped_df,
         x='highest_qualification_level',
         y=['2011_Observation', '2021_Observation'],
-        title=f'Highest Qualification Levels in {selected_local_authority} (2011 v 2021)',
-        labels={'x': 'Qualification Level', 'y': 'Observation'},
-        barmode='group'
+        barmode='group',
+        template='plotly_dark',
     )
 
+    # Modifying the hovertemplate 
+    fig.update_traces(hovertemplate='<br>Count %{y}')
+
+    # Customization of other layout properties
     fig.update_layout(
-    legend_title_text='Observation Year',
-    hovermode='x unified',
+    title=f'Highest Qualification Levels in {selected_local_authority} (2011 v 2021)',
     xaxis_title='Qualification Level',
     yaxis_title='Count',
+    legend_title_text='Observation Year',
+    hovermode='x unified',
     hoverlabel=dict(
-            # bgcolor="black",
-            font_size=12,
-            font_family="Rockwell"
-        )
-    )
+        font_size=12,
+        font_family="Rockwell",
+    ),
+    paper_bgcolor='white',  # Background color of the entire figure
+    plot_bgcolor='white',   # Background color of the plotting area
+    font_color='black'
+)
 
     return fig
 
