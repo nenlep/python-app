@@ -287,6 +287,12 @@ from urllib.request import urlopen
 with urlopen('https://raw.githubusercontent.com/nenlep/python-app/main/Local_Authority_Districts_(December_2021)_GB_BFC.json') as response:
     Local_auth = json.load(response)
 
+# Removing duplicate rows based on the 'highest_qualification' column
+unique_qualifications = merged_df.drop_duplicates('highest_qualification')
+
+# Creating the dropdown options
+dropdown_options = [{'label': row['highest_qualification'], 'value': row['highest_qualification_level']} for index, row in unique_qualifications.iterrows()]
+
 # Create the Dash app
 external_stylesheets = [dbc.themes.FLATLY]
 app = dash.Dash(__name__, external_stylesheets = external_stylesheets)
@@ -323,10 +329,8 @@ app.layout = dbc.Container([
                 html.Label('Select qualification level:'),
                 dcc.Dropdown(
                 id='qual_level',
-                options=[
-                    {'label': level, 'value': level} for level in merged_df['highest_qualification_level'].unique()
-                ],
-                value=merged_df['highest_qualification_level'].unique()[0],  # Set initial value to the first qualification level
+                options=dropdown_options,
+                value=0,
                 clearable=False
                 ),
                 dbc.Col([
@@ -385,8 +389,8 @@ dbc.Row([
                  html.Label('Select qualification level:'),
                 dcc.Dropdown(
                     id='qualification-level-dropdown',
-                    options=[{'label': ql, 'value': ql} for ql in merged_df['highest_qualification_level'].unique()],
-                    value=None
+                    options=dropdown_options,
+                    value=0,
                 ),
                 html.Label('Select sub-region:'),
                 dcc.Dropdown(
